@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    {% if login_user != now_at_user %}
+    <i><a href="{% url 'profile' login_user.id %}">Back to profile</a></i><br>
+    {% endif %}
+{% endblock %}
+
