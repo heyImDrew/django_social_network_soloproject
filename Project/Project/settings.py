@@ -43,11 +43,16 @@ INSTALLED_APPS = [
 
     # Additions
     'django_extensions',
+    'crispy_forms',
 
     #Adding other apps
     'ExtendsUserModel',
     'Communication',
+    'Thoughts',
 ]
+
+# To use crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Extending User model here
 AUTH_USER_MODEL = 'ExtendsUserModel.User'
