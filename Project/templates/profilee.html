@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <meta charset="utf-8">
+        <title>
+            {{ title }}
+        </title>
+    </head>
+    <body>
+        {% if login_user != now_at_user %}
+        <h1><a href="{% url 'profile' login_user.id %}">Back to profile</a></h1><br>
+        Hello world!
+        {% endif %}
+        {% for post in posts %}
+            post<br>
+        {% endfor %}
+</html>
