@@ -3,13 +3,15 @@ from ExtendsUserModel.models import User
 from Thoughts.models import Post
 from .forms import PostForm
 
+from django.shortcuts import get_object_or_404, get_list_or_404
+
 def show_users(request):
     users = User.objects.all()
     return render(request, 'users.html', {'title':'Users', 'users':users})
 
 def profile(request, pk):
     login_user = request.user
-    now_at_user = User.objects.get(pk=pk)
+    now_at_user = get_object_or_404(User, pk=pk)
     posts = Post.objects.filter(connected_to = now_at_user)
     title = now_at_user.first_name + ' ' + now_at_user.last_name if (now_at_user.first_name and now_at_user.last_name) else 'Profile'
     
