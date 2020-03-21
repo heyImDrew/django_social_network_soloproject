@@ -20,4 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('DRF_APP.urls')),
     path('profile/', include('Thoughts.urls')),
+    path('friends/', include('ExtendsUserModel.urls')),
+    path('messages/', include('Communication.urls')),
 ]

@@ -19,26 +19,19 @@ body {
 
 .wide {
     width: 100vw;
-    padding: 0 0 5vh 0;
+    padding: 5vw 0 0 0;
+    margin-top: 2.5vh;
 }
 
 .wide-extend {
     width: 100vw;
-    padding: 5vw 0 5vh 0;
-    margin-top: 25px;
+    padding: 0;
+    margin-top: 2.5vh;
+    margin-bottom: 5vh;
+    min-height: 516px;
 }
 
-.wide-post {
-    width: 100vw;
-    padding: 0 0 2.5vh 0;
-}
-
-.profile-contex {
-    width: 100vw;
-    height: 100vh;
-}
-
-.profile-basic {
+.basic-div {
     margin: 15px;
     align-items: center;
     text-align: center;
@@ -92,56 +85,4 @@ hr.style13 {
     border-radius: 50%;
     color:white;
     text-decoration:none;
-}
-
-.styled-column {
-    font-size: 18;
-    background-color: #ffffff;
-    border-radius: 10px; 
-    padding: 5px 15px 5px 15px;
-    text-align: left;
-    align-items: left;
-}
-
-.styled-text-column {
-    padding: 10px 10px 15px 10px;
-}
-
-.comments-container {
-    margin-left: 50%;
-    margin-bottom: 1vh;
-    width: 50%;
-    text-align: right;
-    align-items: right;
-    font-size: 18px;
-    font-weight: 300;
-}
-
-.comment {
-    padding-top: 10px;
-}
-
-.comment-author {
-    font-size: 12;
-    font-weight: 300;
-}
-
-.comment-text {
-    font-size: 14;
-    font-weight: 400;
-}
-
-.comment-date {
-    font-size: 10;
-    font-weight: 200;
-}
-
-.thoughts-tag {
-    text-align: center;
-    margin: 25px 0 25px 0;
-}
-
-.thoughts-tag a {
-    font-weight: 300;
-    font-size: 25px;
 }
