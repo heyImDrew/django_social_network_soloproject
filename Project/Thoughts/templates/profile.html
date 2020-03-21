@@ -1,20 +1,148 @@
 {% load static %}
 <html>
     <head>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{% static 'profile.css' %}">
         <title>{{ title }}</title>
     </head>
     <body>
-        <div>
-            <h1><a href="#">Profile</a></h1>
+
+        <!-- FIXED NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-nav-bar">
+            <a class="navbar-brand" href="#">
+                <img src="" width="40" height="40" alt="">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">  
+                  <a class="nav-link" href="{% url 'profile' login_user.id %}" style="color: #ffffff;">My profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'messages' %}" style="color: #ffffff;">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'friends' %}" style="color: #ffffff;">Friends</a>
+                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="color: #ffffff;">Logout</a>
+                  </li>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <div class="container h-100">
+                    <div class="d-flex justify-content-center h-100">
+                      <div class="searchbar">
+                        <input class="search_input" type="text" name="" placeholder="Search...">
+                        <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                      </div>
+                    </div>
+                  </div>
+              </form>
+            </div>
+        </nav>
+
+        <!-- PROFILE CONTAINER -->
+        <div class="profile-context">
+            <div class="row wide-extend">
+                <div class="col"></div>
+                <div class="col-6" style="background-color: #ffffff;border-radius: 10px; ">
+                  <div class="profile-basic">
+                    <hr class="style13">
+                    <b style="font-size: 48; font-weight: 400;"> {{ now_at_user.first_name }} {{ now_at_user.last_name }}</b>
+                    <br><br>
+                    <img src="" width="325" height="325" alt="">
+                    <br><br>
+                    <p style="font-size: 16; font-weight: 300;">
+                        Nickname: {{ now_at_user }}<br>
+                        Birthdate: {{ now_at_user.birth }}<br>
+                        Located: {{ now_at_user.location }}<br>
+                        More: {{ now_at_user.bio }}<br>
+                        {% if now_at_user != login_user %}
+                          {% if now_at_user in friends %}
+                          <br><button type="button" class="btn btn-primary btn-sm" style="background-color: #597da3;">Send message</button><br>
+                          {% else %}
+                            {% if now_at_user in req_to %}
+                            <br><button type="button" class="btn btn-primary btn-sm" style="background-color: #597da3;">Waiting for response</button><br>
+                            {% elif now_at_user in req_from %}
+                            <br><button type="button" class="btn btn-primary btn-sm" style="background-color: #597da3;">Accept friend request</button><br>
+                            {% else %}
+                            <br><button type="button" class="btn btn-primary btn-sm" style="background-color: #597da3;">Send a friend request</button><br>
+                            {% endif %}
+                          {% endif %}
+                        {% else %}
+                        <br>
+                        <a href="{% url 'messages' %}"><button type="button" class="btn btn-primary btn-sm" style="background-color: #597da3;">My messages</button></a><br>
+                        {% endif %}
+                    </p>
+                    <hr class="style13">
+                    <form action="#posts">
+                      <button class="btn btn-primary btn-lg btn-block" style="background-color: #597da3;">Go to thoughts...</button>
+                    </form>           
+                  </div>
+                </div>
+                <div class="col"></div>
         </div>
-        {% for post in posts %}
-        <div>
-            {{ now_at_user.first_name }} thinking..:
-            {{ post.text }}
+
+
+        <!-- POSTS CONTAINER -->
+        <a name="posts"></a>
+        {% if now_at_user == login_user %}
+          <div class="thoughts-tag">
+            <form action="#">
+              <button class="btn btn-primary btn-lg btn-block" style="background-color: #597da3;">Add new thought</button>
+            </form>  
+          </div>
+        {% else %}
+          <div class="thoughts-tag"><a>{{ now_at_user.first_name }}'s thoughts..</a></div>
+        {% endif %}
+        <div style="min-height: 82.5vh; align-items: center; text-align: center; ">
+            {% if posts %}
+                {% for post in posts %}
+                <div class="row wide-post">
+                    <div class="col"></div>
+                    <div class="col-6 styled-column">
+                      <div class="styled-text-column">
+                        {{ now_at_user.first_name }}'s <i style="font-weight: 300;">thought ( on {{ post.time }} )</i>
+                      </div>
+                      <hr class="style13" style="margin: 5px;">
+                      <div class="styled-text-column" style="text-align: center;">
+                        {{ post.text }}
+                      </div>
+                      <hr class="style13" style="margin: 10px 0 5px 0;">
+                      <div class="comments-container">
+                        {% for comment in comments %}
+                        {% if comment.connected_to_post == post %}
+                        <div class="comment">
+                          <div class="comment-author"><a href="{% url 'profile' comment.connected_to.id %}" style="font-size: 12; color: black; font-weight: 300;">{{ comment.connected_to.first_name }} {{ comment.connected_to.last_name }}</a> left a comment:</div>
+                          <div class="comment-text">{{ comment.text }}</div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="row wide">
+                <div class="col"></div>
+                <div class="col-6" style="background-color: #ffffff;border-radius: 10px; ">
+                    No posts yet.
+                </div>
+                <div class="col"></div>
+            </div>
+            <img src="" width="800" height="625" alt="">
+            {% endif %}
         </div>
-        {% endfor %}
+
+
+        <!-- FOOTER -->
+        <footer class="page-footer font-small blue" style="background-color: #597da3; color: #ffffff;">
+            <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                <a href="https://github.com/heyImDrew/" style="color: #ffffff;"> <u>heyImDrew</u></a>
+            </div>
+        </footer>
+        
     </body>
 </html>

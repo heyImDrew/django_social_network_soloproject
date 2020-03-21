@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 
-from Thoughts.models import Post
+from Thoughts.models import Post, Comment
 from Communication.models import Message
-from .serializers import PostSerializer, MessageSerializer
+from .serializers import PostSerializer, MessageSerializer, CommentSerializer
 
 class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
@@ -11,6 +11,10 @@ class PostViewSet(viewsets.ModelViewSet):
 class MessageViewSet(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
     queryset = Message.objects.all()
+
+class CommentViewSet(viewsets.ModelViewSet):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
 
 
 # from rest_framework.generics import get_object_or_404

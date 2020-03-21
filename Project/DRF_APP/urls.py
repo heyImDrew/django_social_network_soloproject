@@ -10,10 +10,11 @@
 
 
 from rest_framework.routers import DefaultRouter
-from .views import PostViewSet, MessageViewSet
+from .views import PostViewSet, MessageViewSet, CommentViewSet
 
 router = DefaultRouter()
 router.register(r'posts', PostViewSet, basename='posts')
 router.register(r'messages', MessageViewSet, basename='messages')
+router.register(r'comments', CommentViewSet, basename='comments')
 
 urlpatterns = router.urls
