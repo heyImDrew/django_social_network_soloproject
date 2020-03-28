@@ -63,11 +63,21 @@
                           <br><button type="button" class="btn btn-primary btn-sm" style="background-color: #597da3;">Send message</button><br>
                           {% else %}
                             {% if now_at_user in req_to %}
-                            <br><button type="button" class="btn btn-primary btn-sm" style="background-color: #597da3;">Waiting for response</button><br>
+                            <form action = "{% url 'unfollow' now_at_user.id 'profile' %}" method="post">
+                              {% csrf_token %}
+                              <input  class="btn btn-primary btn-sm" type="submit" value="Unfollow" style="background-color: #597da3; margin-top: 9px;">
+                            </form>
                             {% elif now_at_user in req_from %}
-                            <br><button type="button" class="btn btn-primary btn-sm" style="background-color: #597da3;">Accept friend request</button><br>
+                            <form action = "{% url 'accept' now_at_user.id 'profile' %}" method="post">
+                              {% csrf_token %}
+                              <input  class="btn btn-primary btn-sm" type="submit" value="Follow back" style="background-color: #597da3; margin-top: 9px;">
+                            </form>
                             {% else %}
-                            <br><button type="button" class="btn btn-primary btn-sm" style="background-color: #597da3;">Send a friend request</button><br>
+                            
+                            <form action = "{% url 'follow' now_at_user.id %}" method="post">
+                              {% csrf_token %}
+                              <input  class="btn btn-primary btn-sm" type="submit" value="Follow" style="background-color: #597da3; margin-top: 9px;">
+                            </form>
                             {% endif %}
                           {% endif %}
                         {% else %}

@@ -77,48 +77,48 @@ hr.style13 {
     text-decoration:none;
 }
 
-.message {
-    height: 100px;
-    margin-bottom: 25px;
-    padding: 12.5px 0 12.5px 0;
-    border-radius: 50px;
+.message-notyou {
+    min-height: 25px;
+    margin-bottom: 10px;
+    padding: 5px 0 5px 0;
 }
 
-.message:hover {
-    background-color:#ebeded;
-    transition: 0.75s;
-}
-
-.message:hover .message-tag-goto a {
-    color: black;
-    transition: 0.75s;
-}
-
-.message-img {
-    width: 75px;
-    height: 75px;
+.message-notyou-img {
     float: left;
+    margin-right: 25px;
+}
+
+.message-notyou-tag {
+    height: 25px;
+    text-align: left;
     margin-left: 50px;
 }
 
-.message-tag {
-    height: 25px;
+.message-notyou-msg {
+    min-height: 25px;
     text-align: left;
-    margin-left: 150px;
+    margin-left: 50px;
 }
 
-.message-tag-goto {
+.message-you {
+    min-height: 25px;
+    margin-bottom: 10px;
+    padding: 5px 0 5px 0;
+}
+
+.message-you-img {
     float: right;
+    margin-left: 25px;
+}
+
+.message-you-tag {
+    height: 25px;
+    text-align: right;
     margin-right: 50px;
 }
 
-.message-tag-goto a {
-    color: white;
-    text-decoration: underline;
-}
-
-.message-msg {
-    height: 50px;
-    text-align: left;
-    margin-left: 150px;
+.message-you-msg {
+    min-height: 25px;
+    text-align: right;
+    margin-right: 50px;
 }
