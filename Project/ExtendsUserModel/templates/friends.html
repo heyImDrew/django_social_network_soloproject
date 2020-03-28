@@ -16,7 +16,7 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">  
+                <li class="nav-item">  
                   <a class="nav-link" href="{% url 'profile' login_user.id %}" style="color: #ffffff;">My profile</a>
                 </li>
                 <li class="nav-item">
@@ -42,29 +42,128 @@
             </div>
         </nav>
 
-        <!-- FR CONTAINER -->
-        {% if info == True %}
-        
-        {% endif %}
-        {% if info == False %}
-        <div class="row wide-extend">
+        <!-- PROFILE CONTAINER -->
+        <div class="row wide">
           <div class="col"></div>
-          <div class="col-6" style="background-color: #ffffff; border-radius: 10px; ">
-            <div class="basic-div">         
+          <div class="col-6" style="background-color: #ffffff;border-radius: 10px; margin: 12.5vh 0 5vh 0; min-height: 75.7vh; padding-bottom: 5vh;">
+            <div class="basic-div">
+              <hr class="style13">
+              <b style="font-size: 48; font-weight: 400;"> Friends</b>
+              <hr class="style13" style="margin-bottom: 7.5vh;">      
+
+              {% if friends %}
+                {% for friend in friends %}
+                <div class="wrapper">
+                  <div class="wrapper-img">
+                    <img src="" width="75" height="75" alt="">
+                  </div>
+                  <div class="wrapper-tag">
+                    <b><a href="{% url 'profile' friend.id %}" style="color: black;">{{ friend.first_name }} {{ friend.last_name }}</a></b>
+                    <div class="wrapper-tag-goto">
+                      <form action = "{% url 'unfriend' friend.id 'friends' %}" method="post">
+                        {% csrf_token %}
+                        <input  class="btn btn-primary" type="submit" value="Unfriend" style="font-size: 14px; padding: 0 5px 0 5px;">
+                      </form>
+                    </div>
+                  </div>
+                  <div class="wrapper-info">
+                    {% if friend.birth %}
+                    Birthdate: {{ friend.birth }},
+                    {% else %} 
+                    Hidden birthday,  
+                    {% endif %}
+                    located: 
+                    {% if friend.location %}
+                    {{ friend.location }}<br>
+                    {% else %} 
+                    Hidden info
+                    {% endif %}
+                    <a href="{% url 'dialog' friend.id %}" style="font-size: 14px; color: black; font-weight: 600;">Write a message</a>
+                  </div>
+                </div>
+                {% endfor %}
+              {% endif %} 
+              {% if friends %}
+              {% else %}
+              <div class="wrapper" style="background-color: #ebeded; height: 60px;">
+                No friends yet.
+              </div>
+              {% endif %}
+              <hr class="style13" style="margin-top: 7.5vh;">
+              {% if req_from %}
+              <b style="font-size: 24; font-weight: 400;"> Followers</b>
+                {% for req in req_from %}
+                <div class="wrapper">
+                  <div class="wrapper-img">
+                    <img src="" width="75" height="75" alt="">
+                  </div>
+                  <div class="wrapper-tag">
+                    <b><a href="{% url 'profile' req.id %}" style="color: black;">{{ req.first_name }} {{ req.last_name }}</a></b>
+                    <div class="wrapper-tag-goto">
+                      <form action = "{% url 'accept' req.id 'friends' %}" method="post">
+                        {% csrf_token %}
+                        <input  class="btn btn-primary" type="submit" value="Follow back" style="font-size: 14px; padding: 0 5px 0 5px;">
+                      </form>
+                    </div>
+                  </div>
+                  <div class="wrapper-info">
+                    {% if req.birth %}
+                    Birthdate: {{ req.birth }},
+                    {% else %} 
+                    Hidden birthday,  
+                    {% endif %} 
+                    {% if req.location %}
+                    located: {{ req.location }}<br>
+                    {% else %} 
+                    hidden location
+                    {% endif %}
+                  </div>
+                </div>
+                {% endfor %}
+              {% endif %}
+
+              {% if req_to %}
+              <b style="font-size: 24; font-weight: 400;">Following</b>
+                {% for req in req_to %}
+                <div class="wrapper">
+                  <div class="wrapper-img">
+                    <img src="" width="75" height="75" alt="">
+                  </div>
+                  <div class="wrapper-tag">
+                    <b><a href="{% url 'profile' req.id %}" style="color: black;">{{ req.first_name }} {{ req.last_name }}</a></b>
+                    <div class="wrapper-tag-goto">
+                      <form action = "{% url 'unfollow' req.id 'friends'%}" method="post">
+                        {% csrf_token %}
+                        <input  class="btn btn-primary" type="submit" value="Unfollow" style="font-size: 14px; padding: 0 5px 0 5px;">
+                      </form>
+                    </div>
+                  </div>
+                  <div class="wrapper-info">
+                    {% if req.birth %}
+                    Birthdate: {{ req.birth }},
+                    {% else %} 
+                    Hidden birthday,  
+                    {% endif %} 
+                    {% if req.location %}
+                    located: {{ req.location }}<br>
+                    {% else %} 
+                    hidden location
+                    {% endif %}
+                  </div>
+                </div>
+                {% endfor %}
+              {% endif %}
+
             </div>
           </div>
           <div class="col"></div>
         </div>
-        {% endif %}
-          
-        
 
-        <!-- FOOTER -->
-        <footer class="page-footer font-small blue" style="background-color: #597da3; color: #ffffff;">
-            <div class="footer-copyright text-center py-3">© 2020 Copyright:
-                <a href="https://github.com/heyImDrew/" style="color: #ffffff;"> <u>heyImDrew</u></a>
-            </div>
-        </footer>
-        
+         <!-- FOOTER -->
+         <footer class="page-footer font-small blue" style="background-color: #597da3; color: #ffffff;">
+          <div class="footer-copyright text-center py-3">© 2020 Copyright:
+              <a href="https://github.com/heyImDrew/" style="color: #ffffff;"> <u>heyImDrew</u></a>
+          </div>
+      </footer>
     </body>
 </html>
