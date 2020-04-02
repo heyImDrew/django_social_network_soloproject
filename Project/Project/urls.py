@@ -19,7 +19,9 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('DRF_APP.urls')),
-    path('profile/', include('Thoughts.urls')),
-    path('friends/', include('ExtendsUserModel.urls')),
-    path('messages/', include('Communication.urls')),
+    path('project/profile/', include('Thoughts.urls')),
+    path('project/friends/', include('ExtendsUserModel.urls')),
+    path('project/messages/', include('Communication.urls')),
+    path('project/search/', include('Search.urls')),
+    path('project/account/', include('Account.urls')),
 ]

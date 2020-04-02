@@ -9,6 +9,14 @@
     </head>
     <body>
 
+      {% if anchor %}
+        <script type='text/javascript'>
+        $(document).ready(function(){
+            window.location = '#{{ anchor }}'
+        });
+        </script>
+      {% endif %}
+
         <!-- FIXED NAVBAR -->
         <nav class="navbar navbar-expand-lg navbar-light fixed-nav-bar">
             <a class="navbar-brand" href="#">
@@ -16,8 +24,8 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">  
-                  <a class="nav-link" href="{% url 'profile' login_user.id %}" style="color: #ffffff;">My profile</a>
+                <li class="nav-item">  
+                  <a class="nav-link" href="{% url 'profile' login_user.username %}" style="color: #ffffff;">My profile</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'messages' %}" style="color: #ffffff;">Messages</a>
@@ -26,14 +34,14 @@
                     <a class="nav-link" href="{% url 'friends' %}" style="color: #ffffff;">Friends</a>
                   </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: #ffffff;">Logout</a>
+                    <a class="nav-link" href="{% url 'logout' %}" style="color: #ffffff;">Logout</a>
                   </li>
               </ul>
-              <form class="form-inline my-2 my-lg-0">
+              <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="GET">
                 <div class="container h-100">
                     <div class="d-flex justify-content-center h-100">
                       <div class="searchbar">
-                        <input class="search_input" type="text" name="" placeholder="Search...">
+                        <input class="search_input" type="text" name="q" placeholder="Search...">
                         <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
                       </div>
                     </div>
@@ -60,21 +68,22 @@
                         More: {{ now_at_user.bio }}<br>
                         {% if now_at_user != login_user %}
                           {% if now_at_user in friends %}
-                          <br><button type="button" class="btn btn-primary btn-sm" style="background-color: #597da3;">Send message</button><br>
+                          <a href="{% url 'dialog' now_at_user.id %}"><br><button type="button" class="btn btn-primary btn-sm" style="background-color: #597da3;">Send message</button><br></a>
+                          
                           {% else %}
                             {% if now_at_user in req_to %}
-                            <form action = "{% url 'unfollow' now_at_user.id 'profile' %}" method="post">
+                            <form action = "{% url 'unfollow' now_at_user.username 'profile' %}" method="post">
                               {% csrf_token %}
                               <input  class="btn btn-primary btn-sm" type="submit" value="Unfollow" style="background-color: #597da3; margin-top: 9px;">
                             </form>
                             {% elif now_at_user in req_from %}
-                            <form action = "{% url 'accept' now_at_user.id 'profile' %}" method="post">
+                            <form action = "{% url 'accept' now_at_user.username 'profile' %}" method="post">
                               {% csrf_token %}
                               <input  class="btn btn-primary btn-sm" type="submit" value="Follow back" style="background-color: #597da3; margin-top: 9px;">
                             </form>
                             {% else %}
                             
-                            <form action = "{% url 'follow' now_at_user.id %}" method="post">
+                            <form action = "{% url 'follow' now_at_user.username %}" method="post">
                               {% csrf_token %}
                               <input  class="btn btn-primary btn-sm" type="submit" value="Follow" style="background-color: #597da3; margin-top: 9px;">
                             </form>
@@ -120,11 +129,21 @@
                         {{ post.text }}
                       </div>
                       <hr class="style13" style="margin: 10px 0 5px 0;">
-                      <div class="comments-container">
+                      <div class="comments-container" style="max-height: 325px; overflow:hidden">
+                        <div> 
+                          
+                          <form action = "{% url 'add_comment' login_user.id post.id post.connected_to.id %}" method="post">
+                          {% csrf_token %}
+                          <input id="text" type="text" name="text" placeholder="Write a comment here" autocomplete="off" style="width: 200px; height: 32px; font-size: 14px;">
+                          <input type="submit" value="Leave" style="height: 32px; font-size: 14px;">
+                          </form>
+
+                          Last 5 comments:
+                        </div>
                         {% for comment in comments %}
                         {% if comment.connected_to_post == post %}
                         <div class="comment">
-                          <div class="comment-author"><a href="{% url 'profile' comment.connected_to.id %}" style="font-size: 12; color: black; font-weight: 300;">{{ comment.connected_to.first_name }} {{ comment.connected_to.last_name }}</a> left a comment:</div>
+                          <div class="comment-author"><a href="{% url 'profile' comment.connected_to.username %}" style="font-size: 12; color: black; font-weight: 300;">{{ comment.connected_to.first_name }} {{ comment.connected_to.last_name }}</a> left a comment:</div>
                           <div class="comment-text">{{ comment.text }}</div>
                         </div>
                         {% endif %}
