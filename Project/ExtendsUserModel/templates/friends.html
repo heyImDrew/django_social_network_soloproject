@@ -9,38 +9,38 @@
     </head>
     <body>
 
-        <!-- FIXED NAVBAR -->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-nav-bar">
-            <a class="navbar-brand" href="#">
-                <img src="" width="40" height="40" alt="">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">  
-                  <a class="nav-link" href="{% url 'profile' login_user.id %}" style="color: #ffffff;">My profile</a>
+         <!-- FIXED NAVBAR -->
+         <nav class="navbar navbar-expand-lg navbar-light fixed-nav-bar">
+          <a class="navbar-brand" href="#">
+              <img src="" width="40" height="40" alt="">
+          </a>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item">  
+                <a class="nav-link" href="{% url 'profile' login_user.username %}" style="color: #ffffff;">My profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'messages' %}" style="color: #ffffff;">Messages</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'friends' %}" style="color: #ffffff;">Friends</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'messages' %}" style="color: #ffffff;">Messages</a>
+              <li class="nav-item">
+                  <a class="nav-link" href="#" style="color: #ffffff;">Logout</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'friends' %}" style="color: #ffffff;">Friends</a>
-                  </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: #ffffff;">Logout</a>
-                  </li>
-              </ul>
-              <form class="form-inline my-2 my-lg-0">
-                <div class="container h-100">
-                    <div class="d-flex justify-content-center h-100">
-                      <div class="searchbar">
-                        <input class="search_input" type="text" name="" placeholder="Search...">
-                        <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
-                      </div>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="GET">
+              <div class="container h-100">
+                  <div class="d-flex justify-content-center h-100">
+                    <div class="searchbar">
+                      <input class="search_input" type="text" name="q" placeholder="Search...">
+                      <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
                     </div>
                   </div>
-              </form>
-            </div>
-        </nav>
+                </div>
+            </form>
+          </div>
+      </nav>
 
         <!-- PROFILE CONTAINER -->
         <div class="row wide">
@@ -58,7 +58,7 @@
                     <img src="" width="75" height="75" alt="">
                   </div>
                   <div class="wrapper-tag">
-                    <b><a href="{% url 'profile' friend.id %}" style="color: black;">{{ friend.first_name }} {{ friend.last_name }}</a></b>
+                    <b><a href="{% url 'profile' friend.username %}" style="color: black;">{{ friend.first_name }} {{ friend.last_name }}</a></b>
                     <div class="wrapper-tag-goto">
                       <form action = "{% url 'unfriend' friend.id 'friends' %}" method="post">
                         {% csrf_token %}
@@ -98,9 +98,9 @@
                     <img src="" width="75" height="75" alt="">
                   </div>
                   <div class="wrapper-tag">
-                    <b><a href="{% url 'profile' req.id %}" style="color: black;">{{ req.first_name }} {{ req.last_name }}</a></b>
+                    <b><a href="{% url 'profile' req.username %}" style="color: black;">{{ req.first_name }} {{ req.last_name }}</a></b>
                     <div class="wrapper-tag-goto">
-                      <form action = "{% url 'accept' req.id 'friends' %}" method="post">
+                      <form action = "{% url 'accept' req.username 'friends' %}" method="post">
                         {% csrf_token %}
                         <input  class="btn btn-primary" type="submit" value="Follow back" style="font-size: 14px; padding: 0 5px 0 5px;">
                       </form>
@@ -130,9 +130,9 @@
                     <img src="" width="75" height="75" alt="">
                   </div>
                   <div class="wrapper-tag">
-                    <b><a href="{% url 'profile' req.id %}" style="color: black;">{{ req.first_name }} {{ req.last_name }}</a></b>
+                    <b><a href="{% url 'profile' req.username %}" style="color: black;">{{ req.first_name }} {{ req.last_name }}</a></b>
                     <div class="wrapper-tag-goto">
-                      <form action = "{% url 'unfollow' req.id 'friends'%}" method="post">
+                      <form action = "{% url 'unfollow' req.username 'friends'%}" method="post">
                         {% csrf_token %}
                         <input  class="btn btn-primary" type="submit" value="Unfollow" style="font-size: 14px; padding: 0 5px 0 5px;">
                       </form>

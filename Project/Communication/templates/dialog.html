@@ -9,38 +9,38 @@
     </head>
     <body>
 
-        <!-- FIXED NAVBAR -->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-nav-bar">
-            <a class="navbar-brand" href="#">
-                <img src="" width="40" height="40" alt="">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">  
-                  <a class="nav-link" href="{% url 'profile' login_user.id %}" style="color: #ffffff;">My profile</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'messages' %}" style="color: #ffffff;">Messages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'friends' %}" style="color: #ffffff;">Friends</a>
-                  </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: #ffffff;">Logout</a>
-                  </li>
-              </ul>
-              <form class="form-inline my-2 my-lg-0">
-                <div class="container h-100">
-                    <div class="d-flex justify-content-center h-100">
-                      <div class="searchbar">
-                        <input class="search_input" type="text" name="" placeholder="Search...">
-                        <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
-                      </div>
-                    </div>
+      <!-- FIXED NAVBAR -->
+      <nav class="navbar navbar-expand-lg navbar-light fixed-nav-bar">
+        <a class="navbar-brand" href="#">
+            <img src="" width="40" height="40" alt="">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">  
+              <a class="nav-link" href="{% url 'profile' login_user.username %}" style="color: #ffffff;">My profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'messages' %}" style="color: #ffffff;">Messages</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'friends' %}" style="color: #ffffff;">Friends</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="color: #ffffff;">Logout</a>
+              </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="GET">
+            <div class="container h-100">
+                <div class="d-flex justify-content-center h-100">
+                  <div class="searchbar">
+                    <input class="search_input" type="text" name="q" placeholder="Search...">
+                    <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
                   </div>
-              </form>
-            </div>
-        </nav>
+                </div>
+              </div>
+          </form>
+        </div>
+    </nav>
 
         <!-- PROFILE CONTAINER -->
         <div class="row wide">
@@ -68,7 +68,7 @@
                       <img src="" width="50" height="50" alt="">
                     </div>
                     <div class="message-notyou-tag">
-                      <b><a href="{% url 'profile' dialog.dialog_with.id %}" style="color: black;">{{ dialog.dialog_with.first_name }} {{ dialog.dialog_with.last_name }}</a></b>
+                      <b><a href="{% url 'profile' dialog.dialog_with.username %}" style="color: black;">{{ dialog.dialog_with.first_name }} {{ dialog.dialog_with.last_name }}</a></b>
                     </div>
                     <div class="message-notyou-msg">
                       {{ message.text }}
@@ -83,7 +83,7 @@
                       <img src="" width="50" height="50" alt="">
                     </div>
                     <div class="message-you-tag">
-                      <b><a href="{% url 'profile' login_user.id %}" style="color: black;">You</a></b>
+                      <b><a href="{% url 'profile' login_user.username %}" style="color: black;">You</a></b>
                     </div>
                     <div class="message-you-msg">
                       {{ message.text }}
@@ -97,41 +97,7 @@
               {% else %}
               <div class="message">No messages yet</div>
               {% endif %}
-
-
-              <!--
-              {% if dialogs %}
-                {% for dialog in dialogs %}
-                <div class="message">
-                  <div class="message-img">
-                    <img src="" width="75" height="75" alt="">
-                  </div>
-                  <div class="message-tag">
-                    <b><a href="{% url 'profile' dialog.dialog_with.id %}" style="color: black;">{{ dialog.dialog_with.first_name }} {{ dialog.dialog_with.last_name }}</a></b>
-                    <div class="message-tag-goto">
-                      <a href="#">Go to dialog</a>
-                    </div>
-                  </div>
-                  <div class="message-msg">
-                    {% if dialog.messages.last.message_to == login_user %}
-                    To you: {{ dialog.messages.last.text }}
-                    {% else %}
-                    You: {{ dialog.messages.last.text }}
-                    {% endif %}
-                    {% if dialog.messages.last.is_read == False %}
-                      <a style="font-weight: 200;">(Unread)</a>
-                    {% endif %}
-                  </div>
-                </div>
-                {% endfor %}
-              {% else %}
-              No messages yet.
-              {% endif %} -->
-
-      
               
-
-
             </div>
           </div>
           <div class="col"></div>
