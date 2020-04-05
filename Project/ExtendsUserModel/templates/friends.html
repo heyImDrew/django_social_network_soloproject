@@ -12,7 +12,7 @@
          <!-- FIXED NAVBAR -->
          <nav class="navbar navbar-expand-lg navbar-light fixed-nav-bar">
           <a class="navbar-brand" href="#">
-              <img src="" width="40" height="40" alt="">
+              <img src="{% static 'logo.png' %}" width="40" height="40" alt="">
           </a>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -26,7 +26,7 @@
                   <a class="nav-link" href="{% url 'friends' %}" style="color: #ffffff;">Friends</a>
                 </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#" style="color: #ffffff;">Logout</a>
+                  <a class="nav-link" href="{% url 'logout' %}" style="color: #ffffff;">Logout</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="GET">
@@ -55,7 +55,11 @@
                 {% for friend in friends %}
                 <div class="wrapper">
                   <div class="wrapper-img">
+                    {% if friend.profile_picture %}
                     <img src="" width="75" height="75" alt="">
+                    {% else %}
+                    <img src="{% static 'anon.png' %}" width="75" height="75" alt="">
+                    {% endif %}
                   </div>
                   <div class="wrapper-tag">
                     <b><a href="{% url 'profile' friend.username %}" style="color: black;">{{ friend.first_name }} {{ friend.last_name }}</a></b>
@@ -95,7 +99,11 @@
                 {% for req in req_from %}
                 <div class="wrapper">
                   <div class="wrapper-img">
+                    {% if req.profile_picture %}
                     <img src="" width="75" height="75" alt="">
+                    {% else %}
+                    <img src="{% static 'anon.png' %}" width="75" height="75" alt="">
+                    {% endif %}
                   </div>
                   <div class="wrapper-tag">
                     <b><a href="{% url 'profile' req.username %}" style="color: black;">{{ req.first_name }} {{ req.last_name }}</a></b>
@@ -127,7 +135,11 @@
                 {% for req in req_to %}
                 <div class="wrapper">
                   <div class="wrapper-img">
+                    {% if req.profile_picture %}
                     <img src="" width="75" height="75" alt="">
+                    {% else %}
+                    <img src="{% static 'anon.png' %}" width="75" height="75" alt="">
+                    {% endif %}
                   </div>
                   <div class="wrapper-tag">
                     <b><a href="{% url 'profile' req.username %}" style="color: black;">{{ req.first_name }} {{ req.last_name }}</a></b>

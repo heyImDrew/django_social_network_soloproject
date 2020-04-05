@@ -16,12 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from Project import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('DRF_APP.urls')),
-    path('project/profile/', include('Thoughts.urls')),
-    path('project/friends/', include('ExtendsUserModel.urls')),
-    path('project/messages/', include('Communication.urls')),
-    path('project/search/', include('Search.urls')),
-    path('project/account/', include('Account.urls')),
-]
+    path('profile/', include('Thoughts.urls')),
+    path('friends/', include('ExtendsUserModel.urls')),
+    path('messages/', include('Communication.urls')),
+    path('search/', include('Search.urls')),
+    path('account/', include('Account.urls')),
+] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
