@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="{% static 'login.css' %}">
+        <link rel="stylesheet" href="{% static 'registration.css' %}">
         <title>{{ title }}</title>
     </head>
     <body>
@@ -16,22 +16,26 @@
       
           <!-- Icon -->
           <div class="fadeIn first" style="margin: 2.5vh;">
-            <img src="{% static 'logo.png' %}" width="75" height="75">
+            <img src="{% static 'logo.png' %}" width="75" height="75"><br><br>
+            {% if error %}
+            {{ error }}
+            {% endif %}
           </div>
       
           <!-- Login Form -->
           <form method="POST">
             {% csrf_token %}
             <input type="text" id="username" class="fadeIn second" name="username" placeholder="Login" style="font-weight: 100; margin-bottom: 1vh;">
-            <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password" style="font-weight: 100; margin-bottom: 3vh;">
-            <input type="submit" class="fadeIn fourth" value="Log In">
+            <input type="text" id="password" class="fadeIn third" name="password" placeholder="Passowrd" style="font-weight: 100; margin-bottom: 1vh;">
+            <input type="text" id="first_name" class="fadeIn fourth" name="first_name" placeholder="Name" style="font-weight: 100; margin-bottom: 1vh;">
+            <input type="text" id="last_name" class="fadeIn fifth" name="last_name" placeholder="Surname" style="font-weight: 100; margin-bottom: 2.5vh;">
+            <input type="submit" class="fadeIn fourth" value="Register">
           </form>
       
-          <!-- Remind Passowrd -->
           <div id="formFooter">
-            <a class="underlineHover" href="{% url 'registration' %}">Dont have an account? Create!</a>
+            <a class="underlineHover" href="{% url 'login' %}">Already have an account? Login!</a>
           </div>
-      
+
         </div>
       </div>
 
