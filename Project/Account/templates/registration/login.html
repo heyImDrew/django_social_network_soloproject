@@ -22,8 +22,8 @@
           <!-- Login Form -->
           <form method="POST">
             {% csrf_token %}
-            <input type="text" id="username" class="fadeIn second" name="username" placeholder="Login" style="font-weight: 100; margin-bottom: 1vh;">
-            <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password" style="font-weight: 100; margin-bottom: 3vh;">
+            <input type="text" id="username" class="fadeIn second" name="username" autocomplete="off" placeholder="Login" style="font-weight: 100; margin-bottom: 1vh;">
+            <input type="text" id="password" class="fadeIn third" name="password" autocomplete="off" placeholder="Password" style="font-weight: 100; margin-bottom: 3vh;">
             <input type="submit" class="fadeIn fourth" value="Log In">
           </form>
       

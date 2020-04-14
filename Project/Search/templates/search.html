@@ -54,18 +54,14 @@
                 <div class="wrapper">
                   <div class="wrapper-img">
                     {% if person.profile_picture %}
-                    <img src="" width="75" height="75" alt="">
+                    <img src="{{ person.profile_picture.url }}" width="75" height="75" alt="" style="border-radius: 35px;">
                     {% else %}
-                    <img src="{% static 'anon.png' %}" width="75" height="75" alt="">
+                    <img src="{% static 'logo.png' %}" width="75" height="75" alt="" style="border-radius: 35px;">
                     {% endif %}
                   </div>
                   <div class="wrapper-tag">
                     <b><a href="{% url 'profile' person.username %}" style="color: black;">{{ person.first_name }} {{ person.last_name }}</a></b>
                     <div class="wrapper-tag-goto">
-                      <form action = "{% url 'unfriend' person.id 'friends' %}" method="post">
-                        {% csrf_token %}
-                        <input  class="btn btn-primary" type="submit" value="Unfriend" style="font-size: 14px; padding: 0 5px 0 5px;">
-                      </form>
                     </div>
                   </div>
                   <div class="wrapper-info">
@@ -78,7 +74,7 @@
                     {% if person.location %}
                     {{ person.location }}<br>
                     {% else %} 
-                    Hidden info
+                    Hidden info<br>
                     {% endif %}
                     <a href="{% url 'dialog' person.id %}" style="font-size: 14px; color: black; font-weight: 600;">Write a message</a>
                   </div>

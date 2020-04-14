@@ -7,11 +7,10 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 
 def messages(request):
     login_user = request.user
-    dialogs = Dialog.objects.filter(connected_to = request.user)
-
+    dialogs = Dialog.objects.filter(connected_to = request.user).reverse()
     return render(request, 'messages.html', {
     'title':'Messages', 
-    'dialogs':reversed(list(dialogs)),
+    'dialogs':dialogs,
     'login_user':login_user,
     })
 
@@ -21,6 +20,12 @@ def dialog(request, pk):
     dialog = get_object_or_404(Dialog, connected_to = login_user, dialog_with = dialog_with)
     dialog_2 = get_object_or_404(Dialog, connected_to = dialog_with, dialog_with = login_user)
     messages = list(dialog.messages.all())
+
+    for message in messages:
+        if message.message_from == dialog_with:
+            message.is_read = True
+            message.save()
+        else: message.save()
 
     if request.method == 'POST':
         form = MessageForm(request.POST)

@@ -31,12 +31,9 @@ def registration(request):
         last_name = request.POST['last_name']
         
         if username and password and first_name and last_name:
-            if not User.objects.get(username=username):
-                user = User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name)
-                user.save()
-                return redirect('login')
-            else: 
-                 return render(request, 'registration/registration.html', {'error':'Username is already taken!'},)
+            user = User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name)
+            user.save()
+            return redirect('login')
         else:
             return render(request, 'registration/registration.html', {'error':'Fill all fields first!'},)
 

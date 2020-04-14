@@ -49,16 +49,16 @@
             <div class="basic-div">
               <hr class="style13">
               <b style="font-size: 48; font-weight: 400;"> Friends</b>
-              <hr class="style13" style="margin-bottom: 7.5vh;">      
+              <hr class="style13" style="margin-bottom: 5vh;">      
 
               {% if friends %}
                 {% for friend in friends %}
                 <div class="wrapper">
                   <div class="wrapper-img">
                     {% if friend.profile_picture %}
-                    <img src="" width="75" height="75" alt="">
+                    <img src="{{ friend.profile_picture.url }}" width="75" height="75" alt="" style="border-radius: 35px;">
                     {% else %}
-                    <img src="{% static 'anon.png' %}" width="75" height="75" alt="">
+                    <img src="{% static 'logo.png' %}" width="75" height="75" alt="" style="border-radius: 35px;">
                     {% endif %}
                   </div>
                   <div class="wrapper-tag">
@@ -74,13 +74,13 @@
                     {% if friend.birth %}
                     Birthdate: {{ friend.birth }},
                     {% else %} 
-                    Hidden birthday,  
+                    Hidden info,  
                     {% endif %}
                     located: 
                     {% if friend.location %}
                     {{ friend.location }}<br>
                     {% else %} 
-                    Hidden info
+                    Hidden info<br>
                     {% endif %}
                     <a href="{% url 'dialog' friend.id %}" style="font-size: 14px; color: black; font-weight: 600;">Write a message</a>
                   </div>
@@ -89,7 +89,7 @@
               {% endif %} 
               {% if friends %}
               {% else %}
-              <div class="wrapper" style="background-color: #ebeded; height: 60px;">
+              <div class="wrapper" style="background-color: #ebeded; height: 60px; padding-top: 15px; border-radius: 35px;">
                 No friends yet.
               </div>
               {% endif %}
@@ -100,9 +100,9 @@
                 <div class="wrapper">
                   <div class="wrapper-img">
                     {% if req.profile_picture %}
-                    <img src="" width="75" height="75" alt="">
+                    <img src="{{ req.profile_picture.url }}" width="75" height="75" alt="" style="border-radius: 35px;">
                     {% else %}
-                    <img src="{% static 'anon.png' %}" width="75" height="75" alt="">
+                    <img src="{% static 'logo.png' %}" width="75" height="75" alt="" style="border-radius: 35px;">
                     {% endif %}
                   </div>
                   <div class="wrapper-tag">
@@ -118,12 +118,12 @@
                     {% if req.birth %}
                     Birthdate: {{ req.birth }},
                     {% else %} 
-                    Hidden birthday,  
+                    Hidden info,  
                     {% endif %} 
                     {% if req.location %}
                     located: {{ req.location }}<br>
                     {% else %} 
-                    hidden location
+                    Hidden info<br>
                     {% endif %}
                   </div>
                 </div>
@@ -136,9 +136,9 @@
                 <div class="wrapper">
                   <div class="wrapper-img">
                     {% if req.profile_picture %}
-                    <img src="" width="75" height="75" alt="">
+                    <img src="{{ req.profile_picture.url }}" width="75" height="75" alt="" style="border-radius: 35px;">
                     {% else %}
-                    <img src="{% static 'anon.png' %}" width="75" height="75" alt="">
+                    <img src="{% static 'logo.png' %}" width="75" height="75" alt="" style="border-radius: 35px;">
                     {% endif %}
                   </div>
                   <div class="wrapper-tag">
@@ -159,7 +159,7 @@
                     {% if req.location %}
                     located: {{ req.location }}<br>
                     {% else %} 
-                    hidden location
+                    Hidden info<br>
                     {% endif %}
                   </div>
                 </div>

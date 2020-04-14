@@ -49,7 +49,7 @@
             <div class="basic-div">
               <hr class="style13">
               <b style="font-size: 48; font-weight: 400;"> Messages</b>
-              <hr class="style13" style="margin-bottom: 5vh;">      
+              <hr class="style13" style="margin-bottom: 4.5vh;">      
 
 
               {% if dialogs %}
@@ -58,9 +58,9 @@
                     <div class="message">
                       <div class="message-img">
                         {% if dialog.dialog_with.profile_picture %}
-                        <img src="" width="75" height="75" alt="">
+                        <img src="{{ dialog.dialog_with.profile_picture.url }}" width="75" height="75" alt="" style="border-radius: 35px;">
                         {% else %}
-                        <img src="{% static 'anon.png' %}" width="50" height="50" alt="">
+                        <img src="{% static 'logo.png' %}" width="50" height="50" alt="" style="border-radius: 35px;">
                       {% endif %}
                       </div>
                       <div class="message-tag">
@@ -70,21 +70,28 @@
                         </div>
                       </div>
                       <div class="message-msg">
-                        {% if dialog.messages.last.message_to == login_user %}
-                        To you: {{ dialog.messages.last.text }}
+                        {% if dialog.messages.all %}
+                          {% if dialog.messages.last.message_to == login_user %}
+                          To you: {{ dialog.messages.last.text }}
+                          {% else %}
+                          You: {{ dialog.messages.last.text }}
+                          {% endif %}
+                          {% if dialog.messages.last.is_read == False %}
+                            <a style="font-weight: 200;">(Unread)</a>
+                          {% endif %}
                         {% else %}
-                        You: {{ dialog.messages.last.text }}
+                        Say hi to {{ dialog.dialog_with.first_name }}!
                         {% endif %}
-                        {% if dialog.messages.last.is_read == False %}
-                          <a style="font-weight: 200;">(Unread)</a>
-                        {% endif %}
+                        
                       </div>
                     </div>
                   {% endif %}
-                
                 {% endfor %}
-              {% else %}
-              No messages yet.
+             {% else %}
+              <div class="wrapper" style="background-color: #ebeded; height: 60px; padding-top: 15px; border-radius: 35px; margin-top: 2.5vh;">
+                No messages yet.
+              </div>
+              <hr class="style13" style="margin-top: 55px;">
               {% endif %}
 
       

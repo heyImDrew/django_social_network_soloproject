@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from ExtendsUserModel.models import User
+from Communication.models import Dialog
 
 from django.shortcuts import get_object_or_404, get_list_or_404
 
@@ -32,6 +33,15 @@ def accept(request, pk, page):
         login_user.friends.add(work_user)
         work_user.friend_requests_to.remove(login_user)
         work_user.friends.add(login_user)
+
+        if Dialog.objects.filter(connected_to = login_user, dialog_with = work_user) and Dialog.objects.filter(connected_to = work_user, dialog_with = login_user):
+            pass
+        else:
+            dialog_1 = Dialog.objects.create(connected_to = login_user, dialog_with = work_user)
+            dialog_2 = Dialog.objects.create(connected_to = work_user, dialog_with = login_user)
+            dialog_1.save()
+            dialog_2.save()
+
         if page == 'profile':
             return redirect('profile', pk=work_user.username)
         elif page == 'friends':

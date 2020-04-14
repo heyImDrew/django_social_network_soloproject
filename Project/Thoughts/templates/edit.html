@@ -1,0 +1,83 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{% static 'edit.css' %}">
+        <title>Edit profile</title>
+    </head>
+    <body>
+
+         <!-- FIXED NAVBAR -->
+         <nav class="navbar navbar-expand-lg navbar-light fixed-nav-bar">
+          <a class="navbar-brand" href="#">
+              <img src="{% static 'logo.png' %}" width="40" height="40" alt="">
+          </a>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item">  
+                <a class="nav-link" href="{% url 'profile' login_user.username %}" style="color: #ffffff;">My profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'messages' %}" style="color: #ffffff;">Messages</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'friends' %}" style="color: #ffffff;">Friends</a>
+                </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}" style="color: #ffffff;">Logout</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="GET">
+              <div class="container h-100">
+                  <div class="d-flex justify-content-center h-100">
+                    <div class="searchbar">
+                      <input class="search_input" type="text" name="q" placeholder="Search...">
+                      <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                    </div>
+                  </div>
+                </div>
+            </form>
+          </div>
+      </nav>
+
+        <!-- PROFILE CONTAINER -->
+        <div class="row wide">
+          <div class="col"></div>
+          <div class="col-6" style="background-color: #ffffff;border-radius: 10px; margin: 12.5vh 0 5vh 0; min-height: 75.7vh; padding-bottom: 5vh;">
+            <div class="basic-div">
+              <hr class="style13">
+              <b style="font-size: 48; font-weight: 400;"> Edit profile </b>
+              <hr class="style13" style="margin-bottom: 5vh;">      
+
+              <form action = "{% url 'edit_info' %}" method="post">
+                {% csrf_token %}
+                Name<br> <input id="name" type="text" name="name" value="{{ login_user.first_name }}" autocomplete="off" style="width: 200px; height: 32px; font-size: 14px;"><br>
+                Surname<br> <input id="surname" type="text" name="surname" value="{{ login_user.last_name }}" autocomplete="off" style="width: 200px; height: 32px; font-size: 14px;"><br>
+                Birthday (now {{ login_user.birth }})<br> <input id="birth" type="datetime" name="birth" value="Y-M-D" autocomplete="off" style="width: 200px; height: 32px; font-size: 14px;"><br>
+                Location<br> <input id="location" type="text" name="location" value="{{ login_user.location }}" autocomplete="off" style="width: 200px; height: 32px; font-size: 14px;"><br>
+                More information<br> <input id="info" type="text" name="info" value="{{ login_user.bio }}" autocomplete="off" style="width: 200px; height: 32px; font-size: 14px;"><br><br>
+                <input type="submit" value="Submit changes" style="height: 32px; font-size: 14px;">
+              </form><br><br>
+              <form action = "{% url 'edit_pass' %}" method="post">
+                {% csrf_token %}
+                New password<br> <input id="pass" type="text" name="pass" autocomplete="off" style="width: 200px; height: 32px; font-size: 14px;"><br><br>
+                <input type="submit" value="Change password" style="height: 32px; font-size: 14px;">
+              </form>
+
+              <hr class="style13" style="margin-top: 5vh;">
+
+            </div>
+          </div>
+          <div class="col"></div>
+        </div>
+
+         <!-- FOOTER -->
+         <footer class="page-footer font-small blue" style="background-color: #597da3; color: #ffffff;">
+          <div class="footer-copyright text-center py-3">© 2020 Copyright:
+              <a href="https://github.com/heyImDrew/" style="color: #ffffff;"> <u>heyImDrew</u></a>
+          </div>
+      </footer>
+    </body>
+</html>

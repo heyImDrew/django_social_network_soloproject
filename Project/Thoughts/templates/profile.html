@@ -25,8 +25,13 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">  
-                  <a class="nav-link" href="{% url 'profile' login_user.username %}" style="color: #ffffff;">My profile</a>
+                  <a class="nav-link" href="{% url 'profile' login_user.username %}" style="color: #ffffff;">My profile<a>
                 </li>
+                {% if now_at_user == login_user %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'edit' %}" style="color: #ffffff; font-size: 18px;"> Edit profile</a>
+                </li>
+                {% endif %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'messages' %}" style="color: #ffffff;">Messages</a>
                 </li>
@@ -42,7 +47,7 @@
                     <div class="d-flex justify-content-center h-100">
                       <div class="searchbar">
                         <input class="search_input" type="text" name="q" placeholder="Search...">
-                        <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                        <a href="" class="search_icon"><i class="fas fa-search"></i></a>
                       </div>
                     </div>
                   </div>
@@ -116,9 +121,9 @@
         <a name="posts"></a>
         {% if now_at_user == login_user %}
           <div class="thoughts-tag">
-            <form action="#">
+            <form action="{% url 'addthought' %}">
               <button class="btn btn-primary btn-lg btn-block" style="background-color: #597da3;">Add new thought</button>
-            </form>  
+            </form>
           </div>
         {% else %}
           <div class="thoughts-tag"><a>{{ now_at_user.first_name }}'s thoughts..</a></div>
@@ -172,7 +177,7 @@
                 </div>
                 <div class="col"></div>
             </div>
-            <img src="" width="800" height="625" alt="">
+            <img src="" width="800" height="625" alt="" style="margin-bottom: 5vh;">
             {% endif %}
         </div>
 

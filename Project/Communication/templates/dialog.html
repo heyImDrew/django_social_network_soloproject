@@ -65,11 +65,14 @@
                   {% if message.message_from != login_user %}
                   <div class="message-notyou">
                     <div class="message-notyou-img">
+                      
+
                       {% if message.message_from.profile_picture %}
-                      <img src="" width="50" height="50" alt="">
+                      <img src="{{ message.message_from.profile_picture.url }}" width="50" height="50" alt="" style="border-radius: 25px;">
                       {% else %}
-                      <img src="{% static 'anon.png' %}" width="50" height="50" alt="">
+                      <img src="{% static 'logo.png' %}" width="50" height="50" alt="" style="border-radius: 25px;">
                       {% endif %}
+                    
                     </div>
                     <div class="message-notyou-tag">
                       <b><a href="{% url 'profile' dialog.dialog_with.username %}" style="color: black;">{{ dialog.dialog_with.first_name }} {{ dialog.dialog_with.last_name }}</a></b>
@@ -85,9 +88,9 @@
                   <div class="message-you">
                     <div class="message-you-img">
                       {% if login_user.profile_picture %}
-                      <img src="" width="50" height="50" alt="">
+                      <img src="{{ login_user.profile_picture.url }}" width="50" height="50" alt="" style="border-radius: 25px;">
                       {% else %}
-                      <img src="{% static 'anon.png' %}" width="50" height="50" alt="">
+                      <img src="{% static 'logo.png' %}" width="50" height="50" alt="" style="border-radius: 25px;">
                       {% endif %}
                     </div>
                     <div class="message-you-tag">
